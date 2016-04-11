@@ -54,11 +54,11 @@ namespace PrimeTabler.PrimeTablerModel
             var startTime = DateTime.Now;
             if (numberOfPrimes > 0) _primes.Add(2);
             long nextPrime = 3;
-
-            while (Primes.Count < numberOfPrimes)
+            while (_primes.Count < numberOfPrimes)
             {
                 int sqrt = (int)Math.Sqrt(nextPrime);
                 bool isPrime = true;
+                bool possiblePrime = false;
                 for (int i = 0; _primes[i] <= sqrt; i++)
                 {
                     if (nextPrime % _primes[i] == 0)
@@ -71,7 +71,12 @@ namespace PrimeTabler.PrimeTablerModel
                 {
                     _primes.Add(nextPrime);
                 }
-                nextPrime += 2;
+                do
+                {
+                    nextPrime += 2;
+                    if ((nextPrime - 1) % 6 == 0 || (nextPrime - 5) % 6 == 0)
+                        possiblePrime = true;
+                } while (!possiblePrime);
             }
             _populatePrimeTable(numberOfPrimes);
             _calculationTime = (DateTime.Now).Subtract(startTime);
@@ -119,7 +124,7 @@ namespace PrimeTabler.PrimeTablerModel
                     }
                 }
             }
-            else _primesTable = new long[0,0];
+            else _primesTable = new long[0, 0];
         }
     }
 }
