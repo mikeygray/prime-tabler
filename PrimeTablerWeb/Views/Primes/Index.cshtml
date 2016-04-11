@@ -1,0 +1,56 @@
+﻿@model PrimeTabler.PrimeTablerModel.PrimesModel
+
+
+<div class="jumbotron">
+    <h1>Primes Tabler</h1>
+    <p class="lead">A wee prime multiplication-table builder!</p>
+    <h4>To begin enter a positive integer below and click the button. The app will then build a multiplication table from that number of successive prime numbers (starting with "2").</h4>
+    @using (Html.BeginForm("Index", "Primes", FormMethod.Post))
+    {
+        <p>
+            @Html.TextBox("id")
+            &nbsp;
+            <input type="submit" class="btn btn-primary btn-lg" value="Build Table &raquo;" />
+        </p>
+    }
+</div>
+<p class="text-muted"><small>Please Note: Numbers above 500 take an age and have been known to crash browsers/ iis! Invalid input will simply return an empty table.</small></p>
+
+@if (Model.NumberOfPrimes > 0)
+{
+    <table class="table table-hover">
+
+        @for (int primeRow = 0; primeRow < Model.NumberOfPrimes; primeRow++)
+        {
+            <tr>
+                @for (int primeCol = 0; primeCol < Model.NumberOfPrimes; primeCol++)
+                {
+
+                    if (primeRow == 0 || primeCol == 0)
+                    { @Html.Raw("<th>");
+                    }
+                    else { @Html.Raw("<td>");
+                    }
+
+                    if (Model.GetPrimeTableAt(primeRow, primeCol) > 0)
+                    {
+                        @Model.GetPrimeTableAt(primeRow, primeCol);
+                    }
+
+                    if (primeRow == 0 || primeCol == 0)
+                    { @Html.Raw("</th>");
+                    }
+                    else { @Html.Raw("</td>");
+                    }
+                }
+            </tr>
+        }
+    </table>
+    <p>
+        <strong>
+            Calculation Time:
+            @Model.CalculationTime.TotalSeconds
+            secs
+        </strong>
+    </p>
+}
