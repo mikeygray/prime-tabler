@@ -50,10 +50,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PrimeConsoleHelperTest.cs" />
     <Compile Include="PrimeModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PrimeTablerConsole\PrimeTablerConsole.csproj">
+      <Project>{069bb752-e0ba-4490-b724-7dd937c315ae}</Project>
+      <Name>PrimeTablerConsole</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PrimeTablerModel\PrimeTablerModel.csproj">
       <Project>{c31726f6-c000-4461-af37-e83c775f9b94}</Project>
       <Name>PrimeTablerModel</Name>
